@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <link rel="stylesheet" href="css/mycss.css">
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новини бібліотеки</title>
+</head>
+
+<body bgcolor="#f9f9f9"
+    style="max-width: 800px; margin: auto; font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;">
+    <header>
+        <h1 id="news-welcome" align="center"
+            style="font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;">
+            Новини бібліотеки "Захоплюючі книги"</h1>
+    </header>
+
+    <div class="news-container">
+        <section class="news-item" style="text-align: justify">
+            <article style="margin-bottom: 20px;" title="Нове поповнення книжкового фонду">
+                <img src="new-books.jpg" alt="Нові книги" width="800" title="Нові книги в бібліотеці">
+                <h2>Нові книги в бібліотеці</h2>
+                <time class="published" lang="uk" datetime="2024-08-20T10:00:00">20 серпня 2024</time>
+                <p>Ми раді повідомити про нове поповнення нашого книжкового фонду. У нас з'явилися нові книги в жанрах
+                    фантастики, детективу та історії. Завітайте до нас, щоб ознайомитися з новинками!</p>
+                <p>Для отримання більше інформації про нові надходження, відвідайте нашу <a href="library-news.html"
+                        title="Сторінка новин бібліотеки">сторінку новин</a>.</p>
+            </article>
+        </section>
+
+        <style media="screen" title="Default Styles">
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+
+        <section class="news-item" style="text-align: justify">
+            <article style="margin-bottom: 20px;" title="Запуск нової програми для дітей">
+                <img src="children-program.jpg" alt="Програма для дітей" width="800" title="Програма для дітей">
+                <h2>Запуск нової програми для дітей</h2>
+                <time class="published" lang="uk" datetime="2024-08-25T12:00:00">25 серпня 2024</time>
+                <p>Наша бібліотека запускає нову програму для дітей віком від 6 до 12 років. Програма включає
+                    інтерактивні читання, творчі заняття та ігри. Запрошуємо батьків записувати своїх дітей на заняття.
+                </p>
+            </article>
+        </section>
+
+        <section class="news-item" style="text-align: justify">
+            <article style="margin-bottom: 20px;" title="Виставка стародавніх манускриптів">
+                <img src="manuscripts.jpg" alt="Стародавні манускрипти" width="800"
+                    title="Виставка стародавніх манускриптів">
+                <h2>Виставка стародавніх манускриптів</h2>
+                <time class="published" lang="uk" datetime="2024-09-01T09:00:00">1 вересня 2024</time>
+                <p>Запрошуємо всіх на виставку стародавніх манускриптів, яка відбудеться в нашій бібліотеці з
+                    <sub class="date" id="date" style="text-align: justify">1</sub> по <sub class="date" id="date"
+                        style="text-align: justify">15</sub>
+                    вересня. Виставка буде включати рідкісні рукописи та історичні документи.
+                </p>
+            </article>
+        </section>
+    </div>
+
+    <footer class="footer" id="footer-info">
+        <p>© 2024 Бібліотека <span style="background-color: yellow; font-size: 14px;">"Захоплюючі книги"</span> - <bdo
+                lang="ar">Всі права захищенi.</bdo></p>
+    </footer>
+
+    <map id="interactive-map" name="library-map" lang="uk" tabindex="0">
+        <area href="library-tour.html" alt="Тур по бібліотеці" coords="34,44,270,350" shape="rect" id="tour-area"
+            accesskey="t" class="interactive-area" onblur="yourFunction()">
+        <area href="events.html" alt="Події в бібліотеці" coords="290,172,333,250" shape="rect" id="events-area"
+            accesskey="e" class="interactive-area" onblur="yourFunction()">
+    </map>
+
+    <div class="highlight-section">
+        <p>Останні новини:</p>
+        <ruby id="new-books-ruby" class="highlight">
+            <rb>Нові книги</rb>
+            <rp class="rp" id="rp">(</rp>
+            <rt>Нові книги</rt>
+            <rp class="rp" id="rp">)</rp>
+        </ruby>
+        <mark style="background-color: yellow;" lang="uk" cite="https://library.com/news">Не пропустіть останні
+            оновлення!</mark>
+    </div>
+
+    <hr noshade color=#e5e5e5>
+
+    <div align="center">
+        <a href="about-me.html" style="margin-right: 20px;">Go to Task 1</a>
+        <a href="home-page.html">Go to Task 2</a>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
