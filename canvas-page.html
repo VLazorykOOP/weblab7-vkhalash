@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Растрова графіка</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="450" height="300"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawArrow(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-10, 3.5);
+            ctx.lineTo(-10, -3.5);
+            ctx.closePath();
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        const drawRect = (x, y, width, height) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+        };
+
+        const drawCircle = (x, y, radius) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawPolygon = (points) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(points[0][0], points[0][1]);
+            points.forEach(point => ctx.lineTo(point[0], point[1]));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawEllipse = (x, y, rx, ry) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawLine = (x1, y1, x2, y2) => {
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        };
+
+        const drawText = (text, x, y) => {
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.fillText(text, x, y);
+        };
+
+        const drawArrowLine = (x1, y1, x2, y2) => {
+            drawLine(x1, y1, x2, y2);
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            drawArrow(x2, y2, angle);
+        };
+
+        drawRect(350, 50, 50, 50);
+        drawRect(100, 50, 50, 50);
+        drawRect(200, 0, 100, 50);
+        drawRect(150, 200, 50, 50);
+        drawRect(300, 200, 50, 50);
+
+        drawCircle(125, 125, 25);
+        drawCircle(375, 125, 25);
+
+        drawPolygon([[100, 200], [150, 200], [125, 150]]);
+        drawPolygon([[350, 200], [400, 200], [375, 150]]);
+
+        drawEllipse(250, 150, 50, 100);
+
+        drawArrowLine(0, 150, 430, 150);
+        drawArrowLine(100, 300, 100, 20);
+
+        for (let i = 1; i <= 6; i++) {
+            drawLine(100 + (i * 50), 135, 100 + (i * 50), 165);
+            drawText(i.toString(), 85 + (i * 50), 170);
+        }
+
+        const yCoords = [250, 200, 150, 100, 50];
+        const yLabels = ['-2', '-1', '0', '1', '2'];
+
+        for (let i = 0; i < yCoords.length; i++) {
+            drawLine(85, yCoords[i], 115, yCoords[i]);
+            drawText(yLabels[i], 80, yCoords[i] + 15);
+        }
+
+        drawText('X', 430, 180);
+        drawText('Y', 120, 20);
+    </script>
+</body>
+
+</html>
