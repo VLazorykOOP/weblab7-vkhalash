@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестова форма</title>
+    <style>
+        body {
+            font-family: "apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 800px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" dir="ltr" title="Тестова форма" target="_self" name="test-form" id="test-form">
+        <label for="text-input" title="Введіть дані" class="inputLabel">Введіть дані:</label>
+        <textarea id="text-input" placeholder="Введіть свої дані" name="text-input" maxlength="500" lang="uk" required
+            style="min-height: 150px;"></textarea>
+
+        <button type="button" onclick="getFormElements()">Список елементів форми</button>
+        <button type="button" onclick="getWordInfo()">Інформація про слова в тексті</button>
+        <button type="button" onclick="removeNegativeArrayElements()">Видалити від’ємні елементи масиву</button>
+    </form>
+
+    <script>
+        function getFormElements() {
+            const formElements = document.getElementById("test-form").elements;
+
+            let output = "Список елементів форми:\n";
+
+            for (const element of formElements) {
+                output += `${element.tagName}\n`;
+            }
+
+            alert(`${output}`);
+
+            console.log(output);
+        }
+
+        function getWordInfo() {
+            const text = document.getElementById("text-input").value;
+
+            const wordsCount = text.trim().split(/\s+/).length;
+            const specialWords = text.match(/(^|\s)г[а-щьюяєіїґ\d]*і(?=\s|$)/g) || [];
+            const numbers = text.match(/-?\d+(?:\.\d+)?/g) || [];
+            const integers = text.match(/-?\d+(?:\.\d+)?/g).filter(num => Number.isInteger(parseFloat(num))) || [];
+
+            if (!text.trim()) {
+                alert('Будь ласка, введіть текст для аналізу');
+                return;
+            }
+
+            const output = "Результати пошуку інформації:\n" +
+                `Кількість слів: ${wordsCount}\n` +
+                `Слова, що починаються на "Г" та закінчуються на "І": ${specialWords.join(', ') || 'Не знайдено'}\n` +
+                `Усі числа: ${numbers.join(', ') || 'Не знайдено'}\n` +
+                `Усі цілі числа: ${integers.join(', ') || 'Не знайдено'}`;
+
+            alert(output);
+
+            console.log(output);
+        }
+
+        function removeNegativeArrayElements() {
+            const text = document.getElementById("text-input").value;
+            const array = text.split(',').map(Number);
+            const filteredArray = array.filter(num => num >= 0);
+
+            const output = "Результати фільтрації:\n" +
+                `Оригінальний масив: ${array}\n` +
+                `Масив без від'ємних елементів: ${filteredArray}`;
+
+            alert(output);
+
+            console.log(output);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бібліотека - Додавання книги</title>
+    <style>
+        body {
+            font-family: "apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 900px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            width: 100%;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[name="coverImage"] {
+            border: none;
+        }
+
+        input[type="color"],
+        input[type="file"] {
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="reset"],
+        input[type="submit"],
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input[type="reset"]:hover,
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #b0b3b8;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        output {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" dir="ltr" title="Форма для додавання книг" target="_self" name="bookForm" id="bookForm">
+        <h1>Додати інформацію про книгу</h1>
+
+        <label for="bookTitle" title="Введіть назву книги" class="inputLabel">Назва книги:</label>
+        <input autofocus required type="text" id="bookTitle" placeholder="Введіть назву книги" name="bookTitle"
+            title="Мінімум 3 символи" autocomplete="off" lang="uk">
+
+        <label for="author" title="Введіть автора книги" class="inputLabel">Автор:</label>
+        <input type="text" id="author" placeholder="Введіть автора" name="author" required autocomplete="off"
+            pattern=".{3,}" lang="uk">
+
+        <label for="pubYear" title="Оберіть рік видання книги" class="inputLabel">Рік видання:</label>
+        <input type="month" id="pubYear" placeholder="Введіть рік видання" name="pubYear" required>
+
+        <label for="isbn" title="Введіть ISBN" class="inputLabel">ISBN:</label>
+        <input type="tel" id="isbn" placeholder="Введіть ISBN" name="isbn" required pattern="\d{3}-\d{10}"
+            title="Формат: 123-1234567890" autocomplete="off">
+
+        <label for="coverColor" title="Оберіть колір обкладинки" class="inputLabel">Колір обкладинки:</label>
+        <input type="color" id="coverColor" name="coverColor" value="#ff0000">
+
+        <label for="pages" title="Введіть кількість сторінок" class="inputLabel">Кількість сторінок:</label>
+        <input type="number" id="pages" placeholder="Введіть кількість сторінок" name="pages" required min="1"
+            max="10000">
+
+        <label for="coverImage" title="Завантажте зображення обкладинки" class="inputLabel">Обкладинка
+            (зображення):</label>
+        <input type="file" id="coverImage" name="coverImage" accept="image/*" required>
+
+        <label for="language" title="Оберіть мову книги" class="inputLabel">Мова:</label>
+        <select name="language" id="language" required>
+            <optgroup label="Основні мови" id="langGroup1" lang="uk">
+                <option value="uk" title="Українська">Українська</option>
+                <option value="en" title="Англійська">Англійська</option>
+            </optgroup>
+            <optgroup label="Інші мови" id="langGroup2" lang="uk">
+                <option value="pl" title="Польська">Польська</option>
+                <option value="fr" title="Французька">Французька</option>
+            </optgroup>
+        </select>
+
+        <label for="description" title="Введіть опис книги" class="inputLabel">Опис:</label>
+        <textarea id="description" placeholder="Введіть свій опис книги" name="description" maxlength="500" lang="uk"
+            required style="min-height: 150px;"></textarea>
+
+        <label for="progress" class="inputLabel">Прогрес додавання:</label>
+        <progress value="0" max="100" title="Прогрес завантаження" dir="ltr" style="width: 100%;"></progress>
+
+        <label for="outputResult" class="inputLabel">Результат:</label>
+        <output id="outputResult" name="outputResult" class="outputClass" dir="ltr"></output>
+
+        <input type="reset" value="Очистити форму">
+
+        <input type="submit" value="Надіслати інформацію">
+
+        <button formmethod="post" formtarget="_blank" autofocus formnovalidate disabled>Надіслати без валідації</button>
+    </form>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
