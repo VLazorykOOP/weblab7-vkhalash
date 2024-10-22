@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Растрова графіка</title>
+</head>
+
+<body>
+    <canvas id="my-canvas" width="450" height="300"></canvas>
+    <script>
+        const canvas = document.getElementById('my-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawArrow(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-10, 3.5);
+            ctx.lineTo(-10, -3.5);
+            ctx.closePath();
+            ctx.fillStyle = 'black';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        const drawRect = (x, y, width, height) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+        };
+
+        const drawCircle = (x, y, radius) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawPolygon = (points) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(points[0][0], points[0][1]);
+            points.forEach(point => ctx.lineTo(point[0], point[1]));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawEllipse = (x, y, rx, ry) => {
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        };
+
+        const drawLine = (x1, y1, x2, y2) => {
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        };
+
+        const drawText = (text, x, y) => {
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.fillText(text, x, y);
+        };
+
+        const drawArrowLine = (x1, y1, x2, y2) => {
+            drawLine(x1, y1, x2, y2);
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            drawArrow(x2, y2, angle);
+        };
+
+        const clearCanvas = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        };
+
+        let rectCoordX = 200;
+        let triangleAngle = 0;
+        let ellipseScale = 1;
+        let scaleDirection = 1;
+
+        function drawTable() {
+            drawArrowLine(0, 150, 450, 150);
+            drawArrowLine(100, 300, 100, 0);
+
+            for (let i = -1; i <= 6; i++) {
+                let x = i * 50
+
+                drawLine(100 + x, 135, 100 + x, 165);
+                drawText(i.toString(), 85 + x, 170);
+            }
+
+            for (let i = 0; i <= 4; i++) {
+                let y = 250 - 50 * i;
+
+                if (y !== 150) {
+                    drawLine(85, y, 115, y);
+                    drawText((i - 2).toString(), 80, y + 15);
+                }
+            }
+
+            drawText('X', 430, 180);
+            drawText('Y', 120, 20);
+        }
+
+        function drawShapes() {
+            drawRect(350, 50, 50, 50);
+            drawRect(100, 50, 50, 50);
+            drawRect(150, 200, 50, 50);
+            drawRect(300, 200, 50, 50);
+
+            drawCircle(125, 125, 25);
+            drawCircle(375, 125, 25);
+        }
+
+        function animateShapes() {
+            clearCanvas();
+
+            rectCoordX += 2;
+            if (rectCoordX > canvas.width) rectCoordX = 200;
+            drawRect(rectCoordX, 0, 100, 50);
+
+            ctx.save();
+            ctx.translate(125, 175);
+            ctx.rotate(triangleAngle);
+            drawPolygon([[-25, 25], [25, 25], [0, -25]]);
+            ctx.restore();
+            triangleAngle += 0.025;
+
+            drawEllipse(250, 150, 50 * ellipseScale, 100 * ellipseScale);
+            ellipseScale += scaleDirection * 0.01;
+            if (ellipseScale > 1 || ellipseScale < 0.5) scaleDirection *= -1;
+
+            drawShapes();
+            drawTable();
+
+            requestAnimationFrame(animateShapes);
+        }
+
+        animateShapes();
+    </script>
+</body>
+
+</html>
