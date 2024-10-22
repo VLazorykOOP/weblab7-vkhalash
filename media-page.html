@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Vitalii Khalash">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бібліотека медіа ресурсів</title>
+    <style>
+        body {
+            font-family: "apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 800px;
+        }
+
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            width: 100%;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .media-item audio,
+        .media-item video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .media-item video:hover {
+            transform: scale(1.05);
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .media-library {
+            margin-top: 40px;
+        }
+
+        .media-item {
+            margin-bottom: 20px;
+        }
+
+        .media-item audio,
+        .media-item video {
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data" id="mediaForm">
+        <h1>Додати медіа ресурс</h1>
+
+        <label for="mediaTitle">Назва медіа:</label>
+        <input type="text" id="mediaTitle" name="mediaTitle" placeholder="Введіть назву" required>
+
+        <label for="mediaType">Тип медіа:</label>
+        <select id="mediaType" name="mediaType" required>
+            <option value="audio">Аудіо</option>
+            <option value="video">Відео</option>
+        </select>
+
+        <label for="mediaFile">Завантажте файл медіа:</label>
+        <input type="file" id="mediaFile" name="mediaFile" accept="audio/*, video/*" required>
+
+        <input type="submit" value="Додати до бібліотеки">
+    </form>
+
+    <div class="media-library" id="media-library">
+        <div class="media-item" id="media1"></div>
+        <div class="media-item" id="media2"></div>
+    </div>
+
+    <script>
+        document.getElementById('mediaForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const mediaTitle = document.getElementById('mediaTitle').value;
+            const mediaType = document.getElementById('mediaType').value;
+            const mediaFile = document.getElementById('mediaFile').files[0];
+
+            const mediaLibrary = document.getElementById('media-library');
+            const newMediaItem = document.createElement('div');
+
+            newMediaItem.classList.add('media-item');
+
+            if (mediaType === 'audio') {
+                newMediaItem.innerHTML = `
+            <h3>${mediaTitle} (Аудіо):</h3>
+            <audio controls>
+                <source src="${URL.createObjectURL(mediaFile)}" type="${mediaFile.type}">
+            </audio>
+        `;
+            } else if (mediaType === 'video') {
+                newMediaItem.innerHTML = `
+            <h3>${mediaTitle} (Відео):</h3>
+            <video id="video-${mediaTitle}" controls>
+                <source src="${URL.createObjectURL(mediaFile)}" type="${mediaFile.type}">
+            </video>
+        `;
+
+                const videoElement = newMediaItem.querySelector(`#video-${mediaTitle}`);
+
+                videoElement.addEventListener('mouseover', function () {
+                    videoElement.style.transform = 'scale(1.05)';
+                    videoElement.style.transition = 'transform 0.3s';
+                });
+
+                videoElement.addEventListener('mouseout', function () {
+                    videoElement.style.transform = 'scale(1)';
+                });
+            }
+            mediaLibrary.appendChild(newMediaItem);
+        });
+    </script>
+</body>
+
+</html>
